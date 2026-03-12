@@ -1,137 +1,233 @@
-1) write c++ program to selection sort
+1)write a c++ program to code c++ class and object
 #include <iostream>
-#include <algorithm> // Required for std::swap, or you can implement your own swap function
-#include <vector>    // Using vector is a modern C++ practice
+#include <string>
 
-// Function to perform selection sort on a vector of integers
-void selectionSort(std::vector<int>& arr) {
-    int n = arr.size();
+using namespace std;
 
-    // Outer loop iterates through each element of the array
-    for (int i = 0; i < n - 1; i++) {
-        // Assume the current position holds the minimum element's index
-        int min_idx = i;
+// Class definition
+class Car {
+public: // Access specifier - members can be accessed from outside the class
+    string brand;   // Attribute (data member)
+    string model;   // Attribute
+    int year;      // Attribute
 
-        // Inner loop finds the actual minimum element in the remaining unsorted array
-        for (int j = i + 1; j < n; j++) {
-            if (arr[j] < arr[min_idx]) {
-                min_idx = j;
-            }
-        }
-
-        // Swap the found minimum element with the first element of the unsorted portion
-        // This moves the smallest element to its correct position in the sorted array
-        std::swap(arr[i], arr[min_idx]);
+    // Member function (method) defined inside the class
+    void displayDetails() {
+        cout << "Brand: " << brand << ", Model: " << model << ", Year: " << year << endl;
     }
-}
+};
 
 int main() {
-    std::vector<int> data = {64, 25, 12, 22, 11};
-    int n = data.size();
+    // Create an object of the Car class
+    Car carObj1;
 
-    std::cout << "Original array: ";
-    for (int i = 0; i < n; i++) {
-        std::cout << data[i] << " ";
-    }
-    std::cout << std::endl;
+    // Access attributes and set values using the dot operator
+    carObj1.brand = "BMW";
+    carObj1.model = "X5";
+    carObj1.year = 1999;
 
-    // Call the selection sort function
-    selectionSort(data);
+    // Call the member function to display details
+    carObj1.displayDetails();
 
-    std::cout << "Sorted array: ";
-    for (int i = 0; i < n; i++) {
-        std::cout << data[i] << " ";
-    }
-    std::cout << std::endl;
+    // Create another object of the same class
+    Car carObj2;
+
+    // Access attributes and set values for the second object
+    carObj2.brand = "Ford";
+    carObj2.model = "Mustang";
+    carObj2.year = 1969;
+
+    // Call the member function for the second object
+    carObj2.displayDetails();
 
     return 0;
 }
-2) write c++ program to insertion sort
+2)write a c++ program to code c++ constructor and destructor
 #include <iostream>
-#include <vector> // Using vector is a modern C++ practice
+using namespace std;
 
-// Function to perform insertion sort on a vector
-void insertionSort(std::vector<int>& arr) {
-    int n = arr.size();
-    // Start from the second element as the first is considered sorted
-    for (int i = 1; i < n; i++) {
-        int key = arr[i];
-        int j = i - 1;
-
-        // Move elements of arr[0...i-1] that are greater than key
-        // one position ahead of their current position
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j--;
-        }
-        arr[j + 1] = key; // Place the key in its correct position
+class MyClass {
+public:
+    // Constructor
+    // It has the same name as the class and no return type.
+    MyClass() {
+        cout << "Constructor called: Object is being created" << endl;
     }
+
+    // Destructor
+    // It has the same name as the class, prefixed with a tilde (~),
+    // and cannot return a value or take any parameters.
+    ~MyClass() {
+        cout << "Destructor called: Object is being deleted" << endl;
+    }
+
+    // A simple member function
+    void displayMessage() {
+        cout << "Inside the displayMessage function" << endl;
+    }
+};
+
+int main() {
+    // Creating an object of MyClass
+    // The constructor is automatically called when the object 'obj' is created.
+    MyClass obj;
+
+    // Calling a member function
+    obj.displayMessage();
+
+    // The destructor is automatically called when the object 'obj' goes out of scope,
+    // which happens at the end of the main function in this case.
+    return 0;
 }
+3) write a c++ program to code c++ linear search
+#include <iostream>
 
-// Function to print the elements of a vector
-void printArray(const std::vector<int>& arr) {
-    for (int i = 0; i < arr.size(); i++) {
-        std::cout << arr[i] << " ";
+// Function to perform linear search
+int linearSearch(int arr[], int size, int target) {
+    // Iterate through the array elements from the first (index 0) to the last
+    for (int i = 0; i < size; i++) {
+        // Check if the current element matches the target value
+        if (arr[i] == target) {
+            return i; // Return the index if a match is found
+        }
     }
-    std::cout << std::endl;
+    return -1; // Return -1 if the target is not found in the array
 }
 
 int main() {
-    std::vector<int> data = {12, 11, 13, 5, 6};
-    std::cout << "Original array: ";
-    printArray(data);
+    // Example array
+    int array[] = {12, 9, 37, 86, 2, 17, 5};
+    // Calculate the size of the array
+    int n = sizeof(array) / sizeof(array[0]);
+    // The value to search for
+    int target = 17;
 
-    insertionSort(data);
+    // Call the linear search function
+    int result = linearSearch(array, n, target);
 
-    std::cout << "Sorted array: ";
-    printArray(data);
+    // Display the result
+    if (result == -1) {
+        std::cout << "Element not found" << std::endl;
+    } else {
+        std::cout << "Element found at index: " << result << std::endl;
+    }
 
     return 0;
-} 
-3) write c++ program to bubble sort
+}
+
+4) write a c++ program to occurance of search key
 #include <iostream>
 
-// Function to swap two elements
-void swap(int* xp, int* yp) {
-    int temp = *xp;
-    *xp = *yp;
-    *yp = temp;
-}
+using namespace std;
 
-// Function to implement bubble sort
-void bubbleSort(int arr[], int n) {
-    int i, j;
-    bool swapped; // Optimization flag
-    for (i = 0; i < n - 1; i++) {
-        swapped = false;
-        // Last i elements are already in place
-        for (j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                swap(&arr[j], &arr[j + 1]);
-                swapped = true;
-            }
+/**
+ * Counts the number of occurrences of a search key in an array.
+ * 
+ * @param arr The array of integers.
+ * @param n The size of the array.
+ * @param key The value to search for.
+ * @return The number of times the key appears in the array.
+ */
+int countOccurrences(int arr[], int n, int key) {
+    int count = 0;
+    // Iterate through the array
+    for (int i = 0; i < n; i++) {
+        // If the current element matches the key, increment the counter
+        if (arr[i] == key) {
+            count++;
         }
-        // If no two elements were swapped by inner loop, then the array is sorted
-        if (!swapped)
-            break;
     }
+    return count;
 }
 
-// Function to print the array
-void printArray(int arr[], int size) {
-    for (int i = 0; i < size; i++)
-        std::cout << arr[i] << " ";
-    std::cout << std::endl;
-}
-
-// Main function
 int main() {
-    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int arr[] = {10, 20, 10, 30, 40, 10, 50, 20};
     int n = sizeof(arr) / sizeof(arr[0]);
-    std::cout << "Unsorted array: ";
-    printArray(arr, n);
-    bubbleSort(arr, n);
-    std::cout << "Sorted array: ";
-    printArray(arr, n);
+    int searchKey = 10;
+
+    // Call the function to count occurrences
+    int occurrences = countOccurrences(arr, n, searchKey);
+
+    // Output the result
+    cout << "The search key " << searchKey << " appears " << occurrences << " times in the array." << endl;
+
+    return 0;
+}
+5) write c++ program to binary search
+int main() {
+    std::vector<int> numbers = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};
+    int target = 23;
+
+    // The array is already sorted, which is essential for binary search.
+    // If not sorted, you could use std::sort(numbers.begin(), numbers.end());
+
+    int result_index = binarySearch(numbers, target);
+
+    if (result_index != -1) {
+        std::cout << "Element " << target << " found at index " << result_index << "." << std::endl;
+    } else {
+        std::cout << "Element " << target << " not found in the array." << std::endl;
+    }
+
+    // Example using the C++ STL built-in function
+    if (std::binary_search(numbers.begin(), numbers.end(), target)) {
+        std::cout << "STL binary_search confirms that " << target << " is present." << std::endl;
+    }
+
+    return 0;
+}
+
+#include <iostream>
+#include <vector>
+#include <algorithm> // Required for std::sort and std::binary_search
+
+// Function to perform binary search iteratively
+int binarySearch(const std::vector<int>& arr, int target) {
+    int left = 0;
+    int right = arr.size() - 1;
+
+    while (left <= right) {
+        // Calculate the middle index to avoid potential overflow with (left+right)/2
+        int mid = left + (right - left) / 2;
+
+        // Check if the target is present at the middle
+        if (arr[mid] == target) {
+            return mid;
+        }
+
+        // If target is greater, ignore the left half
+        if (arr[mid] < target) {
+            left = mid + 1;
+        }
+        // If target is smaller, ignore the right half
+        else {
+            right = mid - 1;
+        }
+    }
+
+    // If the loop finishes, the element was not in the array
+    return -1;
+}
+
+int main() {
+    std::vector<int> numbers = {2, 5, 8, 12, 16, 23, 38, 56, 72, 91};
+    int target = 23;
+
+    // The array is already sorted, which is essential for binary search.
+    // If not sorted, you could use std::sort(numbers.begin(), numbers.end());
+
+    int result_index = binarySearch(numbers, target);
+
+    if (result_index != -1) {
+        std::cout << "Element " << target << " found at index " << result_index << "." << std::endl;
+    } else {
+        std::cout << "Element " << target << " not found in the array." << std::endl;
+    }
+
+    // Example using the C++ STL built-in function
+    if (std::binary_search(numbers.begin(), numbers.end(), target)) {
+        std::cout << "STL binary_search confirms that " << target << " is present." << std::endl;
+    }
+
     return 0;
 }
