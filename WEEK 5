@@ -1,0 +1,177 @@
+) c++ program for addition of two numbers using dma
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int n, sum = 0;
+    int* ptr; // Declare an integer pointer
+
+    // Prompt the user to enter the number of elements
+    cout << "Enter the number of elements: ";
+    cin >> n;
+
+    // Dynamically allocate memory for an array of 'n' integers
+    ptr = new int[n];
+
+    // Check if memory allocation was successful
+    if (ptr == nullptr) {
+        cout << "Error! memory not allocated." << endl;
+        return 1; // Exit program with an error code
+    }
+
+    // Input elements from the user and calculate the sum
+    cout << "Enter elements: " << endl;
+    for (int i = 0; i < n; ++i) {
+        cout << "Element " << i + 1 << ": ";
+        cin >> ptr[i]; // Store the input in the dynamically allocated array
+        sum += ptr[i]; // Add the element to the sum
+    }
+
+    // Display the sum of the elements
+    cout << "Sum = " << sum << endl;
+
+    // Deallocate the dynamically allocated memory
+    delete[] ptr;
+    ptr = nullptr; // Good practice to set pointer to nullptr after deallocation
+
+    return 0;
+} 
+#include <iostream>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;     // Data field
+    Node* next;   // Pointer to the next node
+
+    // Constructor to easily create a new node
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+// Function to print the linked list (traversal)
+void printList(Node* head) {
+    Node* current = head; // Start from the head
+    while (current != nullptr) { // Traverse until the end (NULL)
+        cout << current->data << " "; // Print data
+        current = current->next;     // Move to the next node
+    }
+    cout << endl;
+}
+2)c++ program for 4nodes in single linked list
+int main() {
+    // Initialize head pointer to NULL for an empty list
+    Node* head = nullptr;
+
+    // Create the four nodes using dynamic memory allocation (new)
+    Node* first = new Node(10);
+    Node* second = new Node(20);
+    Node* third = new Node(30);
+    Node* fourth = new Node(40);
+
+    // Link the nodes together
+    head = first;         // 'first' is the head of the list
+    first->next = second; // Link first node to second
+    second->next = third; // Link second node to third
+    third->next = fourth; // Link third node to fourth
+    fourth->next = nullptr; // The last node's next pointer should be NULL
+
+    // Display the list
+    cout << "The 4-node linked list is: ";
+    printList(head); // The output will be: 10 20 30 40
+
+    // Clean up memory to prevent memory leaks
+    delete first;
+    delete second;
+    delete third;
+    delete fourth;
+    
+    return 0;
+} 
+3)c++ program create a single linked list node based on user input
+#include <iostream>
+using namespace std;
+
+// Define the Node structure
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Global head pointer for the linked list, initialized to NULL for an empty list
+Node* head = NULL;
+
+/**
+ * Function to add a new node to the end of the linked list.
+ */
+void addNode(int num) {
+    // 1. Create a new node dynamically
+    Node* newNode = new Node;
+    newNode->data = num;
+    newNode->next = NULL;
+
+    // 2. If the list is empty, make the new node the head
+    if (head == NULL) {
+        head = newNode;
+        return;
+    }
+
+    // 3. If the list is not empty, traverse to the last node
+    Node* temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    // 4. Link the last node's next pointer to the new node
+    temp->next = newNode;
+}
+
+/**
+ * Function to display all nodes in the linked list.
+ */
+void displayList() {
+    Node* temp = head;
+    if (head == NULL) {
+        cout << "The list is empty" << endl;
+        return;
+    }
+
+    cout << "The linked list: ";
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    int numNodes, value;
+
+    // Get the number of nodes the user wants to create
+    cout << "Enter the number of nodes: ";
+    if (!(cin >> numNodes) || numNodes <= 0) {
+        cout << "Invalid input. Exiting program." << endl;
+        return 1;
+    }
+
+    // Get values from the user and add them to the linked list
+    for (int i = 0; i < numNodes; i++) {
+        cout << "Enter value for node " << i + 1 << ": ";
+        cin >> value;
+        addNode(value);
+    }
+
+    // Display the final linked list
+    displayList();
+
+    // Clean up memory (optional but good practice for dynamic memory allocation)
+    Node* current = head;
+    while (current != NULL) {
+        Node* next = current->next;
+        delete current;
+        current = next;
+    }
+    head = NULL;
+
+    return 0;
+}
