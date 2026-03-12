@@ -1,177 +1,137 @@
-) c++ program for addition of two numbers using dma
+1) write c++ program to selection sort
 #include <iostream>
+#include <algorithm> // Required for std::swap, or you can implement your own swap function
+#include <vector>    // Using vector is a modern C++ practice
 
-using namespace std;
+// Function to perform selection sort on a vector of integers
+void selectionSort(std::vector<int>& arr) {
+    int n = arr.size();
+
+    // Outer loop iterates through each element of the array
+    for (int i = 0; i < n - 1; i++) {
+        // Assume the current position holds the minimum element's index
+        int min_idx = i;
+
+        // Inner loop finds the actual minimum element in the remaining unsorted array
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j;
+            }
+        }
+
+        // Swap the found minimum element with the first element of the unsorted portion
+        // This moves the smallest element to its correct position in the sorted array
+        std::swap(arr[i], arr[min_idx]);
+    }
+}
 
 int main() {
-    int n, sum = 0;
-    int* ptr; // Declare an integer pointer
+    std::vector<int> data = {64, 25, 12, 22, 11};
+    int n = data.size();
 
-    // Prompt the user to enter the number of elements
-    cout << "Enter the number of elements: ";
-    cin >> n;
-
-    // Dynamically allocate memory for an array of 'n' integers
-    ptr = new int[n];
-
-    // Check if memory allocation was successful
-    if (ptr == nullptr) {
-        cout << "Error! memory not allocated." << endl;
-        return 1; // Exit program with an error code
+    std::cout << "Original array: ";
+    for (int i = 0; i < n; i++) {
+        std::cout << data[i] << " ";
     }
+    std::cout << std::endl;
 
-    // Input elements from the user and calculate the sum
-    cout << "Enter elements: " << endl;
-    for (int i = 0; i < n; ++i) {
-        cout << "Element " << i + 1 << ": ";
-        cin >> ptr[i]; // Store the input in the dynamically allocated array
-        sum += ptr[i]; // Add the element to the sum
+    // Call the selection sort function
+    selectionSort(data);
+
+    std::cout << "Sorted array: ";
+    for (int i = 0; i < n; i++) {
+        std::cout << data[i] << " ";
     }
+    std::cout << std::endl;
 
-    // Display the sum of the elements
-    cout << "Sum = " << sum << endl;
+    return 0;
+}
+2) write c++ program to insertion sort
+#include <iostream>
+#include <vector> // Using vector is a modern C++ practice
 
-    // Deallocate the dynamically allocated memory
-    delete[] ptr;
-    ptr = nullptr; // Good practice to set pointer to nullptr after deallocation
+// Function to perform insertion sort on a vector
+void insertionSort(std::vector<int>& arr) {
+    int n = arr.size();
+    // Start from the second element as the first is considered sorted
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+
+        // Move elements of arr[0...i-1] that are greater than key
+        // one position ahead of their current position
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key; // Place the key in its correct position
+    }
+}
+
+// Function to print the elements of a vector
+void printArray(const std::vector<int>& arr) {
+    for (int i = 0; i < arr.size(); i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    std::vector<int> data = {12, 11, 13, 5, 6};
+    std::cout << "Original array: ";
+    printArray(data);
+
+    insertionSort(data);
+
+    std::cout << "Sorted array: ";
+    printArray(data);
 
     return 0;
 } 
+3) write c++ program to bubble sort
 #include <iostream>
-using namespace std;
 
-// Node structure
-struct Node {
-    int data;     // Data field
-    Node* next;   // Pointer to the next node
-
-    // Constructor to easily create a new node
-    Node(int val) : data(val), next(nullptr) {}
-};
-
-// Function to print the linked list (traversal)
-void printList(Node* head) {
-    Node* current = head; // Start from the head
-    while (current != nullptr) { // Traverse until the end (NULL)
-        cout << current->data << " "; // Print data
-        current = current->next;     // Move to the next node
-    }
-    cout << endl;
+// Function to swap two elements
+void swap(int* xp, int* yp) {
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
 }
-2)c++ program for 4nodes in single linked list
+
+// Function to implement bubble sort
+void bubbleSort(int arr[], int n) {
+    int i, j;
+    bool swapped; // Optimization flag
+    for (i = 0; i < n - 1; i++) {
+        swapped = false;
+        // Last i elements are already in place
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(&arr[j], &arr[j + 1]);
+                swapped = true;
+            }
+        }
+        // If no two elements were swapped by inner loop, then the array is sorted
+        if (!swapped)
+            break;
+    }
+}
+
+// Function to print the array
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++)
+        std::cout << arr[i] << " ";
+    std::cout << std::endl;
+}
+
+// Main function
 int main() {
-    // Initialize head pointer to NULL for an empty list
-    Node* head = nullptr;
-
-    // Create the four nodes using dynamic memory allocation (new)
-    Node* first = new Node(10);
-    Node* second = new Node(20);
-    Node* third = new Node(30);
-    Node* fourth = new Node(40);
-
-    // Link the nodes together
-    head = first;         // 'first' is the head of the list
-    first->next = second; // Link first node to second
-    second->next = third; // Link second node to third
-    third->next = fourth; // Link third node to fourth
-    fourth->next = nullptr; // The last node's next pointer should be NULL
-
-    // Display the list
-    cout << "The 4-node linked list is: ";
-    printList(head); // The output will be: 10 20 30 40
-
-    // Clean up memory to prevent memory leaks
-    delete first;
-    delete second;
-    delete third;
-    delete fourth;
-    
-    return 0;
-} 
-3)c++ program create a single linked list node based on user input
-#include <iostream>
-using namespace std;
-
-// Define the Node structure
-struct Node {
-    int data;
-    Node* next;
-};
-
-// Global head pointer for the linked list, initialized to NULL for an empty list
-Node* head = NULL;
-
-/**
- * Function to add a new node to the end of the linked list.
- */
-void addNode(int num) {
-    // 1. Create a new node dynamically
-    Node* newNode = new Node;
-    newNode->data = num;
-    newNode->next = NULL;
-
-    // 2. If the list is empty, make the new node the head
-    if (head == NULL) {
-        head = newNode;
-        return;
-    }
-
-    // 3. If the list is not empty, traverse to the last node
-    Node* temp = head;
-    while (temp->next != NULL) {
-        temp = temp->next;
-    }
-
-    // 4. Link the last node's next pointer to the new node
-    temp->next = newNode;
-}
-
-/**
- * Function to display all nodes in the linked list.
- */
-void displayList() {
-    Node* temp = head;
-    if (head == NULL) {
-        cout << "The list is empty" << endl;
-        return;
-    }
-
-    cout << "The linked list: ";
-    while (temp != NULL) {
-        cout << temp->data << " ";
-        temp = temp->next;
-    }
-    cout << endl;
-}
-
-int main() {
-    int numNodes, value;
-
-    // Get the number of nodes the user wants to create
-    cout << "Enter the number of nodes: ";
-    if (!(cin >> numNodes) || numNodes <= 0) {
-        cout << "Invalid input. Exiting program." << endl;
-        return 1;
-    }
-
-    // Get values from the user and add them to the linked list
-    for (int i = 0; i < numNodes; i++) {
-        cout << "Enter value for node " << i + 1 << ": ";
-        cin >> value;
-        addNode(value);
-    }
-
-    // Display the final linked list
-    displayList();
-
-    // Clean up memory (optional but good practice for dynamic memory allocation)
-    Node* current = head;
-    while (current != NULL) {
-        Node* next = current->next;
-        delete current;
-        current = next;
-    }
-    head = NULL;
-
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    std::cout << "Unsorted array: ";
+    printArray(arr, n);
+    bubbleSort(arr, n);
+    std::cout << "Sorted array: ";
+    printArray(arr, n);
     return 0;
 }
