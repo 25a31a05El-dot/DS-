@@ -1,0 +1,137 @@
+1) write c++ program to selection sort
+#include <iostream>
+#include <algorithm> // Required for std::swap, or you can implement your own swap function
+#include <vector>    // Using vector is a modern C++ practice
+
+// Function to perform selection sort on a vector of integers
+void selectionSort(std::vector<int>& arr) {
+    int n = arr.size();
+
+    // Outer loop iterates through each element of the array
+    for (int i = 0; i < n - 1; i++) {
+        // Assume the current position holds the minimum element's index
+        int min_idx = i;
+
+        // Inner loop finds the actual minimum element in the remaining unsorted array
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j;
+            }
+        }
+
+        // Swap the found minimum element with the first element of the unsorted portion
+        // This moves the smallest element to its correct position in the sorted array
+        std::swap(arr[i], arr[min_idx]);
+    }
+}
+
+int main() {
+    std::vector<int> data = {64, 25, 12, 22, 11};
+    int n = data.size();
+
+    std::cout << "Original array: ";
+    for (int i = 0; i < n; i++) {
+        std::cout << data[i] << " ";
+    }
+    std::cout << std::endl;
+
+    // Call the selection sort function
+    selectionSort(data);
+
+    std::cout << "Sorted array: ";
+    for (int i = 0; i < n; i++) {
+        std::cout << data[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+2) write c++ program to insertion sort
+#include <iostream>
+#include <vector> // Using vector is a modern C++ practice
+
+// Function to perform insertion sort on a vector
+void insertionSort(std::vector<int>& arr) {
+    int n = arr.size();
+    // Start from the second element as the first is considered sorted
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+
+        // Move elements of arr[0...i-1] that are greater than key
+        // one position ahead of their current position
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key; // Place the key in its correct position
+    }
+}
+
+// Function to print the elements of a vector
+void printArray(const std::vector<int>& arr) {
+    for (int i = 0; i < arr.size(); i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    std::vector<int> data = {12, 11, 13, 5, 6};
+    std::cout << "Original array: ";
+    printArray(data);
+
+    insertionSort(data);
+
+    std::cout << "Sorted array: ";
+    printArray(data);
+
+    return 0;
+} 
+3) write c++ program to bubble sort
+#include <iostream>
+
+// Function to swap two elements
+void swap(int* xp, int* yp) {
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+// Function to implement bubble sort
+void bubbleSort(int arr[], int n) {
+    int i, j;
+    bool swapped; // Optimization flag
+    for (i = 0; i < n - 1; i++) {
+        swapped = false;
+        // Last i elements are already in place
+        for (j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(&arr[j], &arr[j + 1]);
+                swapped = true;
+            }
+        }
+        // If no two elements were swapped by inner loop, then the array is sorted
+        if (!swapped)
+            break;
+    }
+}
+
+// Function to print the array
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++)
+        std::cout << arr[i] << " ";
+    std::cout << std::endl;
+}
+
+// Main function
+int main() {
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    std::cout << "Unsorted array: ";
+    printArray(arr, n);
+    bubbleSort(arr, n);
+    std::cout << "Sorted array: ";
+    printArray(arr, n);
+    return 0;
+}
