@@ -1,0 +1,36 @@
+HOSTEL MANAGEMENT 
+
+Hostel mess management documentation 
+outlines the digital or manual procedures for managing daily, monthly, and inventory-related mess operations to replace inefficient manual record-keeping. Key components include automated billing, digital menu management, meal attendance tracking, and feedback mechanisms. It enables efficient handling of student details, inventory, and expenditures.
+ALGROTITHM :
+Core Algorithms and Logic
+1. Student Record Management (Add/Remove) 
+•	Struct Definition: Define a struct containing student ID, name, room number, and attendance count.
+•	Algorithm:
+1.	Open student file in append mode.
+2.	Take user input for new student details.
+3.	Write data to the file.
+4.	To remove: Read all records, skip the target student, and overwrite the file. 
+2. Daily Mess Attendance System
+•	Logic: Tracks who is present for breakfast/lunch/dinner daily to calculate accurate bills.
+•	Algorithm:
+1.	Start daily routine.
+2.	Prompt for student ID or scan QR/ID card.
+3.	Check if ID exists in the system.
+4.	If yes, update attendance count for the day in the student_data.txt file.
+5.	Display "Attendance Marked". 
+3. Menu Management
+•	Logic: Stores weekly or monthly menus to display to students.
+•	Algorithm:
+1.	Initialize a 2D array or file to store menu items (Day-wise, Meal-wise).
+2.	Admin selects option to update menu.
+3.	Overwrite old menu file with new data. 
+4. Monthly Billing Calculation
+•	Formula: Total Bill = (Days Present * Daily Cost) + Extra Items Costs.
+•	Algorithm:
+1.	Read total attendance count from student_data.txt.
+2.	Read extra charges from extras.txt.
+3.	Calculate total = (attendance * daily_rate) + extras.
+4.	Generate report/file for the student.
+FLOW CHART :
+ 
